@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<style>
+	html, body{
+		position: relative;
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+	}
+	.zoom-container{
+		position: absolute;
+		width: 100%;
+		height: 100%;
+	}
+	.zoom{
+		position: absolute;
+		transform-origin: 0 0;
+	}
+	.zoom-item{
+		position: absolute;
+		width: 30px;
+		height: 30px;
+		border: 1px solid #e93232;
+		border-radius: 3px;
+	}
+</style>
+<body>
+	
+	<div class="zoom-container">
+		<div class="zoom">
+			<div class="zoom-item"></div>
+			<div class="zoom-item"></div>
+			<div class="zoom-item"></div>
+			<div class="zoom-item"></div>
+			<div class="zoom-item"></div>
+			<div class="zoom-item"></div>
+		</div>
+	</div>
+	<!-- <svg width="800", height="500" class="zoom-container">
+		<circle class="zoom" fill="#ccc" r="20"></circle>
+	</svg> -->
+
+<script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+<script src="https://d3js.org/d3.v5.js"></script>
+<script>
+	var offsetX = 0,
+		offsetY = 0,
+		scale = 1;
+
+	d3.selectAll('.zoom-item').attr('style', function() {
+		var containerW = $(this).closest('.zoom-container').width(),
+			containerH = $(this).closest('.zoom-container').height();
+
+		var randomX = Math.floor(1/4 * containerW * Math.random() + 3/8 * containerW),
+			randomY = Math.floor(1/4 * containerH * Math.random() + 3/8 * containerH);
+
+		return `top: ${randomY}px;left: ${randomX}px`;
+	})
+
+	d3.selectAll('.zoom-item').call(
+		d3.drag()
+			.on("start", dragStart)
+			.on("drag", dragging)
+			.on("end", dragEnd)
+	)
+
+	function dragStart() {
+		var originX = this.offsetLeft;
+			originY = this.offsetTop;
+
+		offsetX = d3.event.x - originX*scale;
+		offsetY = d3.event.y - originY*scale;
+		console.log('dragStart')
+	}
+	function dragging() {
+		d3.select(this).attr('style', `top: ${(d3.event.y - offsetY)/scale}px; left: ${(d3.event.x - offsetX)/scale}px`)
+	}
+	function dragEnd() {
+		console.log('dragEnd')
+	}
+
+	d3.select('.zoom-container').call(
+			d3.zoom()
+			.on('zoom', zoomed)
+		)
+	function zoomed() {
+		//var transform = d3.event.transform;
+		var transform = d3.zoomTransform(this)
+		scale = transform.k;
+		d3.select('.zoom')
+			.attr('style', `top: ${transform.y}px; left: ${transform.x}px;transform: scale(${transform.k})`);
+			//.attr('style', `transform: translate(${transform.x}px, ${transform.y}px) scale(${transform.k})`);
+			//.attr('transform', transform)
+	}
+</script>
+</body>
+</html>

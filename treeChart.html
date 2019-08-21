@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>tree chart</title>
+	<link rel="stylesheet" href="http://at.alicdn.com/t/font_1343850_wp5zf1lcaa.css">
+</head>
+<style type="text/css">
+	html, body {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		margin: 0;
+	}
+	.svg-container{
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+	.tree-link{
+		fill: none;
+		stroke: #d3d3d3;
+		stroke-width: 4;
+	}
+	.tree-node{
+		fill: #ccc;
+		cursor: pointer;
+	}
+	.tree-node:hover{
+		fill: #999;
+	}
+	.tree-node.active{
+		fill: #666;
+	}
+	.menu-content{
+		position: fixed;
+	    padding: 5px 0;
+	    z-index: 99;
+	    background-color: #fff;
+	    box-shadow: 0px 3px 5px 0px rgba(144,144,144,0.1);
+	}
+	.menu-content.child{
+		position: absolute;
+		padding: 5px 0;
+	}
+	.menu-item{
+		position: relative;
+	}
+	.item-content{
+		width: 160px;
+		line-height: 30px;
+		font-size: 14px;
+		padding: 0 10px;
+		cursor: pointer;
+	}
+	.item-content span{
+		margin-left: 5px;
+		vertical-align: top;
+		color: #333;
+	}
+	.iconremove{
+		color: #d01d1d;
+	}
+	.iconadd{
+		color: #1c1cd6;
+	}
+	.item-content .iconright{
+		float: right;
+		font-size: 14px;
+	}
+	.item-content:hover{
+		background-color: #ededed;
+	}
+	.reset-btn{
+		position: absolute;
+		top: 10px;
+		right: 10px;
+	}
+	.reset-btn{
+		border: 1px solid #ccc;
+		border-radius: 3px;
+	    outline: none;
+	    padding: 6px 18px;
+	    background-color: #fff;
+	    color: #606266;
+	    text-align: center;
+	    transition: .1s;
+	    cursor: pointer;
+	}
+	.reset-btn:hover{
+		border-color: #409eff;
+	    color: #409eff;
+	}
+	.reset-btn:focus{
+		border-color: #409eff;
+	    color: #409eff;
+	}
+	.reset-btn:active{
+		border-color: #3a8ee6;
+	    color: #3a8ee6;
+	}
+	.x-axis, .y-axis{
+		color: #919191;
+ 		stroke-opacity: .2;
+ 		shape-rendering: crispEdges;
+	}
+	.dotted-line-axis{
+		stroke-dasharray: 2, 2;
+	}
+</style>
+<body>
+	<button class="reset-btn"><span>复位</span></button>
+<script src="https://d3js.org/d3.v5.js"></script>
+<script type="text/javascript" src="./menu.js"></script>
+<script type="text/javascript" src="./tree.js"></script>
+<script type="text/javascript" src="./treeChart.js"></script>
+</body>
+</html>
