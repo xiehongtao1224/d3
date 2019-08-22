@@ -224,21 +224,21 @@ class Tree{
 			}
 			/*********限制拖动范围*********/
 
-			setDottedLine(_this.groupX);
+            //setDottedLine(_this.groupX);
+            _this.groupX.call(_this.xAxis.scale(transform.rescaleX(_this.xScale)))
+            _this.groupY.call(_this.yAxis.scale(transform.rescaleY(_this.yScale)))
+            setDottedLine(_this.groupX);
 			setDottedLine(_this.groupY);
-			_this.groupX.call(_this.xAxis.scale(transform.rescaleX(_this.xScale)))
-			_this.groupY.call(_this.yAxis.scale(transform.rescaleY(_this.yScale)))
-			// _this.treeContainer.attr('transform', `translate(${transform.x},${transform.y}) scale(${transform.k})`);
-			_this.treeContainer.attr('transform', transform);
+			_this.treeContainer.attr('transform', `translate(${transform.x},${transform.y}) scale(${transform.k})`);
+			//_this.treeContainer.attr('transform', transform);
 		}
 
 		function setDottedLine(group) {
 			group.selectAll('.tick line')
-				.classed('dotted-line-axis', false)
+                .classed('dotted-line-axis', false)
 				.filter(d => {
-					return d % 100 !== 0 ? d : null;
-				})
-				.classed('dotted-line-axis', true)
+					return d % 100 !== 0;
+                }).classed('dotted-line-axis', true)
 		}
 	}
 
