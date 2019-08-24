@@ -13,9 +13,10 @@
 		padding: 0;
 	}
 	.zoom-container{
-		position: absolute;
+		position: relative;
 		width: 100%;
 		height: 100%;
+        overflow: hidden;
 	}
 	.zoom{
 		position: absolute;
@@ -59,8 +60,8 @@
 		var containerW = $(this).closest('.zoom-container').width(),
 			containerH = $(this).closest('.zoom-container').height();
 
-		var randomX = Math.floor(1/4 * containerW * Math.random() + 3/8 * containerW),
-			randomY = Math.floor(1/4 * containerH * Math.random() + 3/8 * containerH);
+		var randomX = Math.floor(1/2 * containerW * Math.random() + 1/4 * containerW),
+			randomY = Math.floor(1/2 * containerH * Math.random() + 1/4 * containerH);
 
 		return `top: ${randomY}px;left: ${randomX}px`;
 	})

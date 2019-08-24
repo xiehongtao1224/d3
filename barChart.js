@@ -71,11 +71,11 @@ chart.append('rect')
 	.attr('y', height)
 	.attr('width', xScale.bandwidth())
 	.transition()
-	.ease(d3.easeBounceIn)
+	//.ease(d3.easeBounceIn)
 	.delay((d, i) => {
 		return (i + 1) * 50;
 	})
-	.duration(2000)
+	.duration(1000)
 	.attr('y', d => {
 		return yScale(d.value);
 	})
@@ -91,11 +91,11 @@ chart.append('text')
 	})
 	.attr('y', height)
 	.transition()
-	.ease(d3.easeBounceIn)
+	//.ease(d3.easeBounceIn)
 	.delay((d, i) => {
 		return (i + 1) * 50;
 	})
-	.duration(2000)
+	.duration(1000)
 	.attr('y', d => {
 		return yScale(d.value) - 5;
 	})
