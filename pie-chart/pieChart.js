@@ -42,7 +42,7 @@ var colorScale = d3.scaleOrdinal()
 var arcGenerator = d3.arc()
 		.innerRadius(0)
 		.outerRadius(150)
-		.padAngle(0.01)
+        .padAngle(0.01)
 
 var pie = d3.pie();
 var pieData = pie(dataset);
