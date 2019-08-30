@@ -19,7 +19,11 @@ var svg = d3.select('body')
 var g = svg.append('g')
     .attr('transform', `translate(${padding.left}, ${padding.top})`)
 
+var xScale = d3.timeScale()
 
 var line = d3.line()
-    .x(d => x(d.date))
-    .y(d => y(d.value))
+    .x(d => xScale(d.date))
+    .y(d => yScale(d.value))
+
+g.append('path')
+    .attr('d', line(data))
