@@ -19,11 +19,26 @@ var svg = d3.select('body')
 var g = svg.append('g')
     .attr('transform', `translate(${padding.left}, ${padding.top})`)
 
-var xScale = d3.timeScale()
+var xScale = d3.scaleTime()
+    .range([0, width])
+    .domain(d3.extent(data, d => d.date))
+var yScale = d3.scaleLinear()
+    .range([height, 0])
+    .domain(d3.extent(data, d => d.value))
+
+var xAxis = d3.axisBottom(xScale)
+var yAxis = d3.axisLeft(yScale)
+
+g.append('g').attr('transform', `translate(0, ${height})`).call(xAxis)
+g.append('g').call(yAxis)
 
 var line = d3.line()
     .x(d => xScale(d.date))
     .y(d => yScale(d.value))
+    .curve(d3.curveLinearClosed)
 
 g.append('path')
     .attr('d', line(data))
+    .attr('style', () => {
+        return 'fill: none; stroke: black; stroke-width: 1.5px;';
+    })
