@@ -27,6 +27,10 @@ var yScale = d3.scaleLinear()
     .domain(d3.extent(data, d => d.value))
 
 var xAxis = d3.axisBottom(xScale)
+    .tickSizeOuter(10)
+    .tickSizeInner(10)
+    .tickPadding(10)
+    .ticks(5)
 var yAxis = d3.axisLeft(yScale)
 
 g.append('g').attr('transform', `translate(0, ${height})`).call(xAxis)

@@ -173,7 +173,7 @@ class Tree{
 			.tickSize(containerHeight)
     		.tickPadding(8 - containerHeight)
     		.tickFormat(d => {
-    			return d % 100 === 0 ? d : null;
+    			return d % 100 === 0 ? d : '';
     		});
 
     	this.yAxis = d3.axisRight(this.yScale)
