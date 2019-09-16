@@ -10,7 +10,7 @@ class Tree{
 		this.treeContainer = null;
 		this.nodesContainer = null;
 		this.linksContainer = null;
-		this.treeSize = null
+		this.treeSize = null;
 		this.dataset = null;
 		this.clickCb = null;
 		this.contextmenuCb = null;
