@@ -1,4 +1,4 @@
-var mockData = {
+var data = {
     date: 'Jan 2000', value: '1394.46',
     date: 'Feb 2000', value: '1366.42',
     date: 'Mar 2000', value: '1498.58',
