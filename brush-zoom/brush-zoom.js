@@ -1,7 +1,7 @@
 var width = 1000,
     height = 500,
-    height1 = 350,
-    height2 = 100;
+    zoomHeight = 350,
+    brushHeight = 100;
 var padding = { top: 50, left: 50, bottom: 50, right: 50 };
 
 var svg = d3.select('body')
@@ -9,11 +9,19 @@ var svg = d3.select('body')
     .attr('width', width + padding.left + padding.right)
     .attr('height', height + padding.top + padding.bottom)
 
+svg.append('defs')
+    .append('clipPath')
+    .attr('id', 'clipArea')
+    .append('rect')
+    .attr('width', width)
+    .attr('height', zoomHeight)
+
+
 var zoomContent = svg.append('g')
     .attr('transform', `translate(${padding.left}, ${padding.top})`);
 
 var brushContent = svg.append('g')
-    .attr('transform', `translate(${padding.left}, ${padding.top + height - height2})`);
+    .attr('transform', `translate(${padding.left}, ${padding.top + height - brushHeight})`);
 
 var parseDate = d3.timeParse("%b %Y");
 
@@ -22,68 +30,95 @@ data.forEach(item => {
     item.value -= 0;
 });
 
-var x1 = d3.scaleTime()
+var zoomX = d3.scaleTime()
     .range([0, width])
     .domain(d3.extent(data, d => d.date))
-var x2 = d3.scaleTime()
+var brushX = d3.scaleTime()
     .range([0, width])
-    .domain(x1.domain())
-var y1 = d3.scaleLinear()
-    .range([height1, 0])
+    .domain(zoomX.domain())
+var zoomY = d3.scaleLinear()
+    .range([zoomHeight, 0])
     .domain([0, d3.max(data, d => d.value)])
-var y2 = d3.scaleLinear()
-    .range([height2, 0])
-    .domain(y1.domain())
+var brushY = d3.scaleLinear()
+    .range([brushHeight, 0])
+    .domain(zoomY.domain())
 
-var xAxis1 = d3.axisBottom(x1).ticks(10),
-    xAxis2 = d3.axisBottom(x2),
-    yAxis1 = d3.axisLeft(y1);
+var zoomArea = d3.area()
+    .x(d => zoomX(d.date))
+    .y0(zoomHeight)
+    .y1(d => zoomY(d.value))
+
+var brushArea = d3.area()
+    .x(d => zoomX(d.date))
+    .y0(brushHeight)
+    .y1(d => brushY(d.value))
+
+zoomContent.append('path')
+    .datum(data)
+    .attr('d', zoomArea)
+    .attr('class', 'zoom-area')
+
+brushContent.append('path')
+    .attr('d', brushArea(data))
+    .attr('class', 'brush-area')
+
+var zoomXAxis = d3.axisBottom(zoomX).ticks(10),
+    brushXAxis = d3.axisBottom(brushX),
+    zoomYAxis = d3.axisLeft(zoomY);
 
 zoomContent.append('g')
     .attr('class', 'axis-x')
-    .attr('transform', `translate(0, ${height1})`)
-    .call(xAxis1)
+    .attr('transform', `translate(0, ${zoomHeight})`)
+    .call(zoomXAxis)
 zoomContent.append('g')
     .attr('class', 'axis-y')
-    .call(yAxis1)
+    .call(zoomYAxis)
 
 brushContent.append('g')
     .attr('class', 'axis-x')
-    .attr('transform', `translate(0, ${height2})`)
-    .call(xAxis2)
+    .attr('transform', `translate(0, ${brushHeight})`)
+    .call(brushXAxis)
 
-var area1 = d3.area()
-    .x(d => x1(d.date))
-    .y0(height1)
-    .y1(d => y1(d.value))
-
-var area2 = d3.area()
-    .x(d => x1(d.date))
-    .y0(height2)
-    .y1(d => y2(d.value))
-
-zoomContent.append('path')
-    .attr('d', area1(data))
-    .attr('fill', 'steelblue')
-
-brushContent.append('path')
-    .attr('d', area2(data))
-    .attr('fill', 'steelblue')
 
 var zoom = d3.zoom()
-    .scaleExtent([1, 20])
-    .translateExtent([[0, 0], [width, height1]])
-    .extent([[0, 0], [width, height1]])
+    .scaleExtent([1, Infinity])
+    .translateExtent([[0, 0], [width, zoomHeight]])
+    .extent([[0, 0], [width, zoomHeight]])
     .on('zoom', zoomed);
 
 var brush = d3.brushX()
-    .extent([[0, 0], [width, height2]])
+    .extent([[0, 0], [width, brushHeight]])
     .on('brush end', brushed)
 
-function zoomed () {
+brushContent.append('g')
+    .attr('class', 'brushTarget')
+    .call(brush)
+    .call(brush.move, [0, width])
 
+zoomContent.append('rect')
+    .attr('width', width)
+    .attr('height', zoomHeight)
+    .attr('class', 'zoomTarget')
+    .call(zoom)
+
+function zoomed () {
+    if(d3.event.sourceEvent && d3.event.sourceEvent.type === 'brush') return;
+    var t = d3.event.transform;
+    zoomX.domain(t.rescaleX(brushX).domain())
+    zoomContent.select('.zoom-area').attr('d', zoomArea);
+    zoomContent.select('.axis-x').call(zoomXAxis)
+    brushContent.select('.brushTarget').call(brush.move, zoomX.range().map(t.invertX, t));
 }
 
 function brushed () {
-    
+    if(d3.event.sourceEvent && d3.event.sourceEvent.type === 'zoom') return;
+    var s = d3.event.selection || brushX.range();
+    zoomX.domain(s.map(brushX.invert, brushX));
+    zoomContent.select('.zoom-area').attr('d', zoomArea);
+    zoomContent.select('.axis-x').call(zoomXAxis)
+    zoomContent.select('.zoomTarget').call(
+        zoom.transform, 
+        d3.zoomIdentity.scale(width / (s[1] - s[0]))
+            .translate(-s[0], 0)
+    )
 }
