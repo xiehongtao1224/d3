@@ -33,12 +33,12 @@ data.forEach(item => {
 var zoomX = d3.scaleTime()
     .range([0, width])
     .domain(d3.extent(data, d => d.date))
-var brushX = d3.scaleTime()
-    .range([0, width])
-    .domain(zoomX.domain())
 var zoomY = d3.scaleLinear()
     .range([zoomHeight, 0])
     .domain([0, d3.max(data, d => d.value)])
+var brushX = d3.scaleTime()
+    .range([0, width])
+    .domain(zoomX.domain())
 var brushY = d3.scaleLinear()
     .range([brushHeight, 0])
     .domain(zoomY.domain())
@@ -62,9 +62,9 @@ brushContent.append('path')
     .attr('d', brushArea(data))
     .attr('class', 'brush-area')
 
-var zoomXAxis = d3.axisBottom(zoomX).ticks(10),
-    brushXAxis = d3.axisBottom(brushX),
-    zoomYAxis = d3.axisLeft(zoomY);
+var zoomXAxis = d3.axisBottom(zoomX),
+    zoomYAxis = d3.axisLeft(zoomY),
+    brushXAxis = d3.axisBottom(brushX);
 
 zoomContent.append('g')
     .attr('class', 'axis-x')
@@ -104,9 +104,9 @@ zoomContent.append('rect')
 function zoomed () {
     if(d3.event.sourceEvent && d3.event.sourceEvent.type === 'brush') return;
     var t = d3.event.transform;
-    zoomX.domain(t.rescaleX(brushX).domain())
+    zoomX.domain(t.rescaleX(brushX).domain());
     zoomContent.select('.zoom-area').attr('d', zoomArea);
-    zoomContent.select('.axis-x').call(zoomXAxis)
+    zoomContent.select('.axis-x').call(zoomXAxis);
     brushContent.select('.brushTarget').call(brush.move, zoomX.range().map(t.invertX, t));
 }
 
@@ -117,7 +117,7 @@ function brushed () {
     zoomContent.select('.zoom-area').attr('d', zoomArea);
     zoomContent.select('.axis-x').call(zoomXAxis)
     zoomContent.select('.zoomTarget').call(
-        zoom.transform, 
+        zoom.transform,
         d3.zoomIdentity.scale(width / (s[1] - s[0]))
             .translate(-s[0], 0)
     )
