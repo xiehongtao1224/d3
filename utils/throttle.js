@@ -1,4 +1,4 @@
-function throttle(delay) {
+function Throttle(delay) {
     var timer = null;
     return function(fn) {
         if(!timer) {

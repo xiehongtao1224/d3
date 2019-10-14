@@ -1,4 +1,4 @@
-function debounce(delay) {
+function Debounce(delay) {
     var timer = null;
     return function(fn) {
         if(timer !== null) clearTimeout(timer);
