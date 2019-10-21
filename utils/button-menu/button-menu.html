@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../../iconfont/iconfont.css">
+    <link rel="stylesheet" href="./button-menu.css">
+    <title>button menu</title>
+</head>
+<body>
+
+    <div class="button-menu" id="positionMenu">
+        <span class="menu-btn">
+            位置导航<span><i class="iconfont iconlocation"></i></span>
+        </span>
+    </div>
+    
+<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+<script src="./button-menu.js"></script>
+<script>
+    var menuData = {
+        province: [
+            { label: '广东省', value: 'city' }
+        ],
+        city: [
+            { label: '广州市', value: 'gzArea' },
+            { label: '汕头市', value: 'stArea' }
+        ],
+        gzArea: [
+            { label: '天河区', value: '' },
+            { label: '白云区', value: '' },
+            { label: '越秀区', value: '' },
+            { label: '番禺区', value: '' },
+            { label: '花都区', value: '' },
+            { label: '黄浦区', value: '' }
+        ],
+        stArea: [
+            { label: '龙湖区', value: '' },
+            { label: '金平区', value: '' },
+            { label: '朝阳区', value: '' },
+            { label: '潮南区', value: '' },
+            { label: '澄海区', value: '' }
+        ]
+    }
+    var positionMenu = new ButtonMenu();
+    positionMenu.init({
+        id: 'positionMenu',
+        label: 'label',
+        loadMenu(data, resolve) {
+            if(!data) {
+                setTimeout(() => {
+                    resolve(menuData.province);
+                }, 1000)
+            }else {
+                setTimeout(() => {
+                    resolve(menuData[data.value]);
+                }, 1000)
+            }
+        },
+        clickEvent(data) {
+            console.log(data);
+        }
+    })
+</script>
+</body>
+</html>

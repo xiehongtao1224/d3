@@ -1,0 +1,138 @@
+html, body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background-color: #eee;
+}
+*{
+    box-sizing: border-box;
+}
+.button-menu {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    z-index: 10;
+}
+.menu-btn {
+    display: inline-block;
+    padding: 0 10px 0 12px;
+    height: 36px;
+    line-height: 36px;
+    background-color: #fff;
+    border-radius: 4px;
+    box-shadow: 2px 2px 5px 1px #ccc;
+    color: #333;
+    cursor: pointer;
+    font-size: 12px;
+}
+.menu-btn:hover {
+    color: #fff;
+    background-color: #436dff;
+}
+.menu-btn.active {
+    color: #fff;
+    background-color: #436dff;
+}
+.menu-btn i {
+    margin-left: 3px;
+    vertical-align: top;
+    font-size: 15px;
+}
+.button-menu-content {
+    width: 500px;
+    height: 250px;
+    position: absolute;
+    top: calc(100% + 2px);
+    left: 0;
+    background-color: #fff;
+    border-radius: 5px;
+    padding: 10px;
+    font-size: 13px;
+    overflow: hidden;
+}
+.button-menu-nav {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    padding: 5px 15px;
+}
+.menu-nav-item {
+    float: left;
+    max-width: 110px;
+    border: 1px solid #ccc;
+    border-bottom: none;
+    padding: 5px 18px;
+    line-height: 20px;
+    margin-left: -1px;
+    background: #f5f5f5;
+    cursor: pointer;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.menu-nav-item.active {
+    background-color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+}
+.menu-options-content {
+    padding: 10px;
+    width: 100%;
+    height: calc(100% - 40px);
+    border-top: 2px solid #ccc;
+    overflow: auto;
+}
+.menu-options-content:after {
+    content: "";
+    display: block;
+    clear: both;
+}
+.menu-options-item {
+    float: left;  
+    width: 25%;
+    padding: 0 5px;
+    line-height: 30px;
+    vertical-align: middle;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 2px;
+}
+.menu-options-item:hover {
+    background-color: #ddd;
+}
+.menu-options-item.active {
+    color: #fff;
+    background-color: #436dff;
+}
+.hide{
+    display: none !important;
+}
+
+@keyframes loading {
+    from { 
+        transform: rotate(0deg) translate(-50%, -50%);
+    }
+    to { 
+        transform: rotate(360deg) translate(-50%, -50%);
+    }
+}
+.loading{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    background-color: #3535358a;
+    top: 0;
+    left: 0;
+}
+.loading i{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 25px;
+    animation: loading 1s linear infinite;
+    transform-origin: 0 0;
+}
