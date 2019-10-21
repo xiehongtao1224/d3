@@ -1,14 +1,19 @@
-.buttonNav{
-    display: inline-block;
-    position: relative;
-  }
-  .position-nav{
+html, body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background-color: #eee;
+}
+*{
+    box-sizing: border-box;
+}
+.button-nav {
     position: absolute;
-    top: 80px;
-    left: 450px;
+    top: 50px;
+    left: 50px;
     z-index: 15;
-  }
-  .nav-btn{
+}
+.nav-btn {
     display: inline-block;
     padding: 0 10px 0 12px;
     height: 36px;
@@ -19,21 +24,21 @@
     color: #333;
     cursor: pointer;
     font-size: 12px;
-  }
-  .nav-btn:hover{
+}
+.nav-btn:hover {
     color: #fff;
     background-color: #436dff;
-  }
-  .nav-btn.active{
+}
+.nav-btn.active {
     color: #fff;
     background-color: #436dff;
-  }
-  .nav-btn i{
+}
+.nav-btn i {
     margin-left: 3px;
     vertical-align: top;
     font-size: 15px;
-  }
-  .button-nav-content{
+}
+.button-nav-content {
     width: 100%;
     position: absolute;
     top: calc(100% + 8px);
@@ -41,36 +46,39 @@
     color: #333;
     border-radius: 4px;
     box-shadow: 2px 2px 5px 1px #ccc;
-  }
-  .button-nav-item{
+}
+.button-nav-item {
     position: relative;
     width: 100%;
     line-height: 30px;
     font-size: 13px;
     cursor: pointer;
-  }
-  .nav-item-content.active{
+}
+.nav-item-content.active {
     background-color: #d2e4ff !important;
     color: #4a78ff !important;
-  }
-  .showChildren > .position-item-content{
+}
+.showChildren>.position-item-content {
     background-color: #eee;
-  }
-  .nav-item-content{
+}
+.nav-item-content {
     padding-left: 8px;
-  }
-  .button-nav-item:hover > .nav-item-content{
+}
+.button-nav-item:hover>.nav-item-content {
     background-color: #eee;
-  }
-  .button-nav-content.child{
+}
+.button-nav-content.child {
     top: 0;
     left: calc(100% + 8px);
-  }
-  .nav-content-arrow{
+}
+.nav-content-arrow {
     position: absolute;
     left: -6px;
     top: 12px;
     border-right: 6px solid #fff;
     border-top: 5px solid transparent;
     border-bottom: 5px solid transparent;
-  }
+}
+.hide{
+    display: none !important;
+}

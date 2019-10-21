@@ -68,6 +68,7 @@ class ButtonMenu {
             menuItem.addEventListener('click', function() {
                 if($(this).hasClass('active')) return;
                 $(this).addClass('active').siblings().removeClass('active');
+                _this.$container.find('.menu-btn-text').text(label);
                 if(typeof _this.options.clickEvent === 'function') {
                     _this.options.clickEvent(item);
                 }

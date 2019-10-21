@@ -38,6 +38,10 @@ html, body{
     vertical-align: top;
     font-size: 15px;
 }
+.menu-btn-text{
+    display: inline-block;
+    vertical-align: top;
+}
 .button-menu-content {
     width: 500px;
     height: 250px;

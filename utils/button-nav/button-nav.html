@@ -4,13 +4,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" href="../../iconfont/iconfont.css">
+    <link rel="stylesheet" href="./button-nav.css">
+    <title>button-nav</title>
 </head>
 <body>
-    <div id="positionNav" class="position-nav buttonNav">
+    <div id="positionNav" class="button-nav">
         <span class="nav-btn">
-            位置导航<span><i class="iconfont">&#xe639;</i></span>
+            位置导航<span><i class="iconfont iconlocation"></i></span>
         </span>
     </div>
+
+<script src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+<script src="./button-nav.js"></script>
+<script>
+let mockData = [
+    {
+        label: '长岭街',
+        latlngs: [[23.171116, 109.05],[41, 109.03],[41, 102.05],[37, 102.04],[34, 98.04]]
+    }, {
+        label: '长洲街',
+        children: [{
+            label: '长岭社区',
+            latlngs: [[23.171116, 109.05],[41, 109.03],[41, 102.05],[37, 102.04],[30, 98.04]]
+        }, {
+            label: '长洲社区',
+            latlngs: [[23.171116, 109.05],[41, 109.03],[41, 102.05],[37, 102.04],[32, 98.04]]
+        }, {
+            label: '九佛社区',
+            latlngs: [[20.171116, 109.05],[41, 109.03],[41, 102.05],[37, 102.04],[34, 98.04]]
+        }, {
+            label: '民政社区',
+            latlngs: [[23.171116, 109.05],[41, 109.03],[41, 102.05],[37, 102.04],[35, 98.04]]
+        }, {
+            label: '胜利社区',
+            latlngs: [[23.171116, 109.05],[41, 109.03],[41, 102.05],[37, 102.04],[34, 98.04]]
+        }]
+    }, {
+        label: '九佛街',
+        latlngs: [],
+        children: [{
+            label: '长岭社区',
+            latlngs: [[23.171116, 109.05],[41, 109.03],[41, 102.05],[37, 102.04],[34, 98.04]]
+        }, {
+            label: '长洲社区',
+            latlngs: [[23.171116, 109.05],[41, 109.03],[41, 102.05],[37, 102.04],[34, 98.04]]
+        }]
+    }
+];
+
+var positionNav = new ButtonNav();
+positionNav.init('positionNav', mockData, function(data) {
+    console.log(data);
+}, { 
+    toggleEvent: 'click',
+    label: 'label'
+})
+
+
+</script>
 </body>
 </html>
