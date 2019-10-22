@@ -64,6 +64,7 @@ class ButtonMenu {
             var menuItem = document.createElement('span');
             menuItem.className = 'menu-options-item';
             menuItem.innerText = label;
+            menuItem.title = label;
             menuItem._data = item;
             menuItem.addEventListener('click', function() {
                 if($(this).hasClass('active')) return;
@@ -73,7 +74,7 @@ class ButtonMenu {
                     _this.options.clickEvent(item);
                 }
                 let curLevel = $(this).parent('.menu-options-content').attr('level');
-                _this.$container.find(`.menu-nav-item[level="${level}"]`).text(label);
+                _this.$container.find(`.menu-nav-item[level="${level}"]`).text(label).attr('title', label);
                 _this.removeNextAll(parseInt(curLevel)+1);
                 _this.createMenu(this);
             })
@@ -120,12 +121,10 @@ class ButtonMenu {
     }
 
     showLoading(){
-        console.log('showLoading......');
         this.$container.find('.loading').removeClass('hide');
     }
 
     hideLoading() {
-        console.log('hideLoading......');
         this.$container.find('.loading').addClass('hide');
     }
 }
