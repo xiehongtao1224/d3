@@ -46,10 +46,10 @@
     var menuData = [{ 
         label: '广东省',
         value: 'city',
-        children: [{
+        childNode: [{
             label: '广州市',
             value: 'gzArea',
-            children: [
+            childNode: [
                 { label: '天河区', value: '' },
                 { label: '白云区', value: '' },
                 { label: '越秀区', value: '' },
@@ -61,7 +61,7 @@
         { 
             label: '汕头市',
             value: 'stArea',
-            children: [
+            childNode: [
                 { label: '龙湖区', value: '' },
                 { label: '金平区', value: '' },
                 { label: '朝阳区', value: '' },
@@ -76,13 +76,14 @@
         id: 'positionMenu',
         label: 'label',
         data: menuData,
+        children: 'childNode',
         // lazy: true,
         defaultLoadList,
         loadMenu(data, resolve) {
             if(!data) {
                 setTimeout(() => {
                     resolve(menuLazyData.province);
-                }, 500)
+                }, 800)
             }else {
                 setTimeout(() => {
                     resolve(menuLazyData[data.value]);
