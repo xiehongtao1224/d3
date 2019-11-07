@@ -71,7 +71,7 @@ class ButtonMenu {
         if(!(menuData && menuData.length > 0)) return;
         
         let _this = this;
-        let level = this.$container.find('.menu-nav-item').length + 1;
+        let level = this.$container.find('.menu-nav-item').length;
         this.$container.find('.menu-nav-item').removeClass('active');
         this.$container.find('.menu-options-content').addClass('hide');
         this.$container.find('.button-menu-nav').append(`<li class="menu-nav-item active" level="${level}">请选择</li>`);
@@ -103,11 +103,12 @@ class ButtonMenu {
         if(this.defaultLoading) {
             let defaultLoadList = this.options.defaultLoadList;
             let hasDeafultLabel = menuData.some(item => {
-                return item.label === defaultLoadList[level - 1]
+                return item.label === defaultLoadList[level]
             })
-            if(level === defaultLoadList.length) this.defaultLoading = false;
+            // 最后一次触发点击事件前将defaultLoading=false, 才会更改按钮显示值并调用点击事件回调
+            if(level === defaultLoadList.length - 1) this.defaultLoading = false;
             if(hasDeafultLabel) {
-                $menuContainer.find('.menu-options-item[title="'+ defaultLoadList[level - 1] +'"]').click();
+                $menuContainer.find('.menu-options-item[title="'+ defaultLoadList[level] +'"]').click();
             }else {
                 this.defaultLoading = false;
             }
